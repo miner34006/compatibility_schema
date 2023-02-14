@@ -5,6 +5,7 @@ from niltype import Nil, Nilable
 from revolt import SubstitutorValidator
 from th import PathHolder
 from valera import ValidationResult, Validator
+from revolt import SubstitutorValidator
 from valera.errors import (ExtraKeyValidationError, LengthValidationError,
                            MaxLengthValidationError, MinLengthValidationError,
                            MissingKeyValidationError, TypeValidationError)

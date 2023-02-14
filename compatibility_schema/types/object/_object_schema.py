@@ -108,7 +108,7 @@ class ObjectSchema(Schema[ObjectProps]):
                 if key not in new_keys:
                     new_keys[key] = (self.__class__()({comp_key: val}), is_required)
                 else:
-                    new_keys[key].props.keys.update(self.__roll_out({comp_key: val}))
+                    new_keys[key][0].props.keys.update(self.__roll_out({comp_key: val}))
         return new_keys
 
     @property

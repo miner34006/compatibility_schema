@@ -9,8 +9,8 @@ class TestRepresentation(RepresentationTestCase):
         self.assertRepr(schema.null, 'schema.none')
 
     def test_boolean_type_representation(self):
-        self.assertRepr(schema.boolean,          'schema.bool')
-        self.assertRepr(schema.boolean(True),    'schema.bool(True)')
+        self.assertRepr(schema.boolean,          'schema.boolean')
+        self.assertRepr(schema.boolean(True),    'schema.boolean(True)')
 
     def test_integer_type_representation(self):
         self.assertRepr(schema.integer,               'schema.int')
@@ -86,7 +86,7 @@ class TestRepresentation(RepresentationTestCase):
         self.assertRepr(schema.array.contains(schema.integer(42)),
                        'schema.array.contains(schema.int(42))')
         self.assertRepr(schema.array.contains_one(schema.boolean),
-                       'schema.array.contains_one(schema.bool)')
+                       'schema.array.contains_one(schema.boolean)')
         self.assertRepr(schema.array.contains_many(schema.string('banana')),
                        "schema.array.contains_many(schema.string('banana'))")
         self.assertRepr(schema.array.contains_all([schema.string('banana'), schema.string('')]),
@@ -243,4 +243,4 @@ class TestRepresentation(RepresentationTestCase):
                        'schema.any(schema.int(0), schema.int(1))')
 
         self.assertRepr(schema.boolean(True) | schema.null,
-                       'schema.any(schema.bool(True), schema.none)')
+                       'schema.any(schema.boolean(True), schema.none)')

@@ -78,6 +78,20 @@ class TestObjectValidator(ValidatorTestCase):
             }).strict
         )
 
+    def test_it_validates_optional_keys_with_shema_addition(self):
+        schema1 = schema.object({
+            'id':     schema.integer
+        })
+        schema2 = schema.object({
+            'comment?': schema.string
+        })
+        self.assertValidationPasses(
+            {
+                'id': 1
+            },
+            schema1 + schema2
+        )
+
     def test_it_validates_optional_keys(self):
         self.assertValidationPasses(
             {

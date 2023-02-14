@@ -16,7 +16,7 @@ class ObjectRepresentor(Representor, extend=True):
     def __get_object_keys(self, items, indent):
         keys = []
         for key, val in items:
-            actual_val = val[0]
+            actual_val = val[0] if isinstance(val, tuple) else val
             if self.__is_indentable(actual_val):
                 _repr = actual_val.__accept__(self, indent=indent)
             else:

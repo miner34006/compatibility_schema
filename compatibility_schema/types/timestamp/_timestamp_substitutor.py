@@ -1,5 +1,6 @@
 from typing import Any
 
+import delorean
 from niltype import Nil
 from revolt import Substitutor
 from revolt.errors import SubstitutionError
@@ -16,4 +17,4 @@ class TimestampSubstitutor(Substitutor, extend=True):
         error = check_type(value, [str])
         if error:
             raise SubstitutionError(error)
-        return schema.__class__(schema.props.update(value=value))(value)
+        return schema.__class__(schema.props.update(value=schema._parse_value(value)))
