@@ -2,7 +2,7 @@ from typing import Any
 
 from niltype import Nil
 from revolt import Substitutor
-from revolt.errors import SubstitutionError, make_substitution_error
+from revolt.errors import SubstitutionError
 
 from district42 import from_native
 

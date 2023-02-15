@@ -1,4 +1,4 @@
-from ._any_schema import AnySchema
+from .any import AnySchema
 from ._boolean_schema import BooleanSchema
 from ._enum_schema import EnumSchema
 from ._null_schema import NullSchema
