@@ -14,6 +14,7 @@ setup(
         'Delorean==0.5.0',
         'valera==1.5.0',
         'revolt==1.5.1',
-        'blahblah==1.5.0'
+        'blahblah==1.5.0',
+        'district42==1.5.1'
     ]
 )

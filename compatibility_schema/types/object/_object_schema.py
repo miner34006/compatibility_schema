@@ -91,6 +91,8 @@ class ObjectSchema(Schema[ObjectProps]):
     def __roll_out(self, keys):
         new_keys = {}
         for composite_key, val in keys.items():
+            if isinstance(val, tuple):
+                val = val[0]
             error = check_type(val, [Schema])
             if error:
                 raise DeclarationError(error)
