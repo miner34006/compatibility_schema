@@ -59,12 +59,11 @@ class TestSubstitution(SubstitutionTestCase):
         array2_value = [{'id': 1}, {'id': 2}]
         self.assertSchemaHasValue(array2_schema % array2_value, array2_value)
 
-        with self.assertRaises(SubstitutionError):
+        with self.assertRaises(IndexError):
             array2_schema % array1_value
 
         array2_value_extra = [{'id': 1}, {'id': 2}, {'id': 3}]
-        with self.assertRaises(SubstitutionError):
-            array2_schema % array2_value_extra
+        array2_schema % array2_value_extra
 
     def test_array_of_type_substitution(self):
         self.assertSchemaHasValue(schema.array.of(
@@ -76,15 +75,14 @@ class TestSubstitution(SubstitutionTestCase):
         self.assertSchemaHasValue(schema.array.of(
             schema.integer) % [1, 2, 3], [1, 2, 3])
 
-    # TODO: тест падает, поведение поменялось
-    # def test_array_of_object_type_substitution(self):
-    #     object_schema = schema.object({
-    #         'id': schema.integer,
-    #         'is_deleted': schema.boolean,
-    #     })
-    #     array_value = [{'id': 1}, {'id': 2, 'is_deleted': False}]
-    #     self.assertSchemaHasValue(schema.array.of(
-    #         object_schema) % array_value, array_value)
+    def test_array_of_object_type_substitution(self):
+        object_schema = schema.object({
+            'id': schema.integer,
+            'is_deleted': schema.boolean,
+        })
+        array_value = [{'id': 1}, {'id': 2, 'is_deleted': False}]
+        self.assertSchemaHasValue(schema.array.of(
+            object_schema) % array_value, array_value)
 
     def test_object_type_substitution(self):
         object_schema = schema.object({

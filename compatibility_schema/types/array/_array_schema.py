@@ -8,7 +8,6 @@ from district42.errors import DeclarationError
 from district42.types import Schema
 
 from ...helpers import check_type, check_types
-from .._array_of_schema import ArrayOfSchema
 
 
 class ArrayProps(Props):
@@ -61,6 +60,7 @@ class ArraySchema(Schema[ArrayProps]):
 
     @property
     def of(self):
+        from .. import ArrayOfSchema
         return ArrayOfSchema()
 
     def contains(self, item) -> "ArraySchema":
