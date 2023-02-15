@@ -15,10 +15,6 @@ __all__ = ("ArraySubstitutor",)
 class ArraySubstitutor(Substitutor, extend=True):
     def visit_array(self, schema: ArraySchema, *,
                     value: Any = Nil, **kwargs: Any) -> ArraySchema:
-        result = schema.__accept__(self._validator, value=value)
-        if result.has_errors():
-            raise make_substitution_error(result, self._formatter)
-
         error = check_type(value, [list])
         if error:
             raise SubstitutionError(error)
