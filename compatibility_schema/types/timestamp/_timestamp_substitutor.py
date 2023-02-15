@@ -16,4 +16,4 @@ class TimestampSubstitutor(Substitutor, extend=True):
         error = check_type(value, [str])
         if error:
             raise SubstitutionError(error)
-        return schema.__class__(schema.props.update(value=value))
+        return schema.__class__(schema.props.update(value=value))(value)

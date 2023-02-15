@@ -5,4 +5,3 @@ class AnySchema(AnySchema):
     @property
     def nullable(self):
         raise NotImplementedError()
-

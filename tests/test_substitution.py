@@ -183,3 +183,15 @@ class TestSubstitution(SubstitutionTestCase):
 
         with self.assertRaises(SubstitutionError):
             schema.enum(1, 2) % 3
+
+    def test_substitution_inside_any_with_missing_keys(self):
+        s = schema.any(
+            schema.object({
+                'id': schema.integer,
+                'name': schema.string
+            })
+        )
+        value = {'id': 1}
+        s = s % value
+        self.assertSchemaHasValue(s.props.types[0], {'id': 1, 'name': None})
+        self.assertEqual(s.props.types[0].props.keys['id'][0].props.value, 1)

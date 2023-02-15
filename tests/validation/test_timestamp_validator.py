@@ -32,6 +32,10 @@ class TestTimestampValidator(ValidatorTestCase):
         self.assertValidationFails('2015/10/21 16:29:00',       timestamp)
         self.assertValidationFails('2015-10-21T16:29:00+00:00', timestamp)
 
+    def test_it_validates_with_substitution(self):
+        timestamp = schema.timestamp.format('%Y-%m-%dT%H:%M:%S+00:00') % '2023-02-15T16:40:59+00:00'
+        self.assertValidationPasses('2023-02-15T16:40:59+00:00', timestamp)
+
     def test_it_validates_iso(self):
         self.assertValidationPasses(
             '2015-10-21T16:29:00.000Z', schema.timestamp.iso)
