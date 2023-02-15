@@ -27,6 +27,7 @@ class TestSubstitution(SubstitutionTestCase):
 
     def test_string_type_substitution(self):
         self.assertSchemaHasValue(schema.string % 'banana', 'banana')
+        self.assertSchemaHasValue(schema.string('banana') % 'banana1', 'banana1')
         with self.assertRaises(SubstitutionError):
             schema.string.numeric % 1
 

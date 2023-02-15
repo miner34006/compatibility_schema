@@ -20,10 +20,6 @@ class ObjectSubstitutor(Substitutor, extend=True):
         if error:
             raise SubstitutionError(error)
 
-        # result = schema.__accept__(self._validator, value=roll_out(value))
-        # if result.has_errors():
-        #     raise make_substitution_error(result, self._formatter)
-
         rolled_keys = roll_out(value)
         if schema.props.keys is not Nil:
             clone = ObjectSchema(deepcopy(schema.props))
