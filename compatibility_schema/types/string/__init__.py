@@ -5,4 +5,4 @@ from ._string_substitutor import StringSubstitutor
 from ._string_validator import StringValidator
 
 __all__ = ("StringSchema", "StringGenerator", "StringRepresentor", "StringSubstitutor"
-           "StringValidator", )
+           "StringValidator","StringValidator", "StringSubstitutor")

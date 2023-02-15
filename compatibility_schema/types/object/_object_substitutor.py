@@ -37,7 +37,6 @@ class ObjectSubstitutor(Substitutor, extend=True):
 
         object_keys = {}
         for key, val in rolled_keys.items():
-            object_keys[key] = from_native(val)
-        substituted = ObjectSchema(ObjectProps(object_keys))
-
+            object_keys[key] = from_native(val), True
+        substituted = ObjectSchema(ObjectProps({'keys': object_keys}))
         return substituted.strict if schema.props.strict is not Nil else substituted
