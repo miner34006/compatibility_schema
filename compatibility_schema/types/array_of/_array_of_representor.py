@@ -1,10 +1,10 @@
 from typing import Any
-from niltype import Nil
 
 from district42.representor import Representor
+from niltype import Nil
 
-from . import ArrayOfSchema
 from ..object._object_schema import ObjectSchema
+from ._array_of_schema import ArrayOfSchema
 
 __all__ = ("ArrayOfRepresentor",)
 

@@ -2,8 +2,6 @@ import re
 import string
 from typing import Any, Union
 
-from niltype import Nil, Nilable
-
 from district42 import Props, SchemaVisitor
 from district42 import SchemaVisitorReturnType as ReturnType
 from district42.errors import (DeclarationError, make_incorrect_len_error,
@@ -12,6 +10,7 @@ from district42.errors import (DeclarationError, make_incorrect_len_error,
                                make_invalid_type_error)
 from district42.types import Schema
 from district42.utils import TypeOrEllipsis, is_ellipsis
+from niltype import Nil, Nilable
 
 __all__ = ("StringSchema",)
 

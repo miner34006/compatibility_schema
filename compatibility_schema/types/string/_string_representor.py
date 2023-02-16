@@ -1,8 +1,7 @@
 from typing import Any
 
-from niltype import Nil
-
 from district42.representor import Representor
+from niltype import Nil
 
 from ._string_schema import StringSchema
 

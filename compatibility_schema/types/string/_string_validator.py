@@ -2,6 +2,7 @@ import re
 from typing import Any
 
 from niltype import Nil, Nilable
+from revolt import SubstitutorValidator
 from th import PathHolder
 from valera import ValidationResult, Validator
 from valera.errors import (AlphabetValidationError, LengthValidationError,
@@ -12,7 +13,7 @@ from valera.errors import (AlphabetValidationError, LengthValidationError,
 
 from ._string_schema import StringSchema
 
-__all__ = ("StringValidator",)
+__all__ = ("StringValidator", "StringSubstitutorValidator")
 
 
 class StringValidator(Validator, extend=True):

@@ -1,10 +1,9 @@
 from typing import Any
 
+from district42 import from_native
 from niltype import Nil
 from revolt import Substitutor
 from revolt.errors import SubstitutionError
-
-from district42 import from_native
 
 from ...helpers import check_type
 from ._array_schema import ArraySchema

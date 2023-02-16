@@ -1,12 +1,10 @@
-from typing import List, Union, Any
+from typing import Any, List, Union
 
-from niltype import Nilable
-
-from district42 import Props, SchemaVisitor
+from district42 import GenericSchema, Props, Schema, SchemaVisitor
 from district42 import SchemaVisitorReturnType as ReturnType
-from district42 import GenericSchema, Schema
 from district42.errors import DeclarationError, make_invalid_type_error
 from district42.types._list_schema import ElementType
+from niltype import Nilable
 
 
 class ArrayOfProps(Props):

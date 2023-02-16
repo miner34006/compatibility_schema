@@ -4,10 +4,9 @@ from niltype import Nil, Nilable
 from th import PathHolder
 from valera import ValidationResult, Validator
 from valera.errors import (LengthValidationError, MaxLengthValidationError,
-                           MinLengthValidationError,
-                           TypeValidationError)
+                           MinLengthValidationError, TypeValidationError)
 
-from . import ArrayOfSchema
+from ._array_of_schema import ArrayOfSchema
 
 __all__ = ("ArrayOfValidator", )
 

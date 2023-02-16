@@ -4,7 +4,7 @@ from typing import Any
 from blahblah import Generator
 from niltype import Nil
 
-from . import ArrayOfSchema
+from ._array_of_schema import ArrayOfSchema
 
 __all__ = ("ArrayOfGenerator",)
 

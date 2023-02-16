@@ -5,8 +5,8 @@ from revolt import Substitutor
 from revolt.errors import SubstitutionError
 
 from ...helpers import check_type
-from . import ArrayOfSchema
 from ..array import ArraySchema
+from ._array_of_schema import ArrayOfSchema
 
 __all__ = ("ArrayOfSubstitutor",)
 
