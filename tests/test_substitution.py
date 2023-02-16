@@ -185,13 +185,23 @@ class TestSubstitution(SubstitutionTestCase):
             schema.enum(1, 2) % 3
 
     def test_substitution_inside_any_with_missing_keys(self):
-        s = schema.any(
-            schema.object({
-                'id': schema.integer,
-                'name': schema.string
-            })
-        )
+        s = schema.any(schema.object({'id': schema.integer, 'name': schema.string}))
         value = {'id': 1}
         s = s % value
         self.assertSchemaHasValue(s.props.types[0], {'id': 1, 'name': None})
         self.assertEqual(s.props.types[0].props.keys['id'][0].props.value, 1)
+
+    def test_substitution_with_another_pattern_in_any(self):
+        s = schema.string.pattern(r'^[a-z0-9-]{1}\@[a-z0-9]{1}\.[a-z]{1}$')
+        s = schema.object({'email': s | schema.null})
+        s % {'email': 'aa@aa.aa'}
+
+    def test_substitution_object_in_object(self):
+        s = schema.object({
+            'payload': schema.object({
+                'object': schema.object
+            })
+        })
+        value = {'id': 1}
+        s = s % {'payload.object': value}
+        self.assertEqual(s.props.keys['payload'][0].props.keys['object'][0].props.keys['id'][0].props.value, 1)
