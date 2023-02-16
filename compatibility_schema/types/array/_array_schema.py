@@ -1,14 +1,12 @@
 from typing import Any, List, Union
 
-from niltype import Nilable
-
 from district42 import Props, SchemaVisitor
 from district42 import SchemaVisitorReturnType as ReturnType
 from district42.errors import DeclarationError
 from district42.types import Schema
+from niltype import Nilable
 
 from ...helpers import check_type, check_types
-from .._array_of_schema import ArrayOfSchema
 
 
 class ArrayProps(Props):
@@ -61,6 +59,7 @@ class ArraySchema(Schema[ArrayProps]):
 
     @property
     def of(self):
+        from .. import ArrayOfSchema
         return ArrayOfSchema()
 
     def contains(self, item) -> "ArraySchema":

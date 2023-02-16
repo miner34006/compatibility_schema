@@ -146,31 +146,31 @@ class TestRepresentation(RepresentationTestCase):
 
     def test_array_of_type_representation(self):
         self.assertRepr(schema.array.of(schema.integer),
-                       'schema.list(schema.int)')
+                       'schema.array_of(schema.int)')
 
         self.assertRepr(schema.array.of(schema.integer).empty,
-                       'schema.list(schema.int).len(0)')
+                       'schema.array_of(schema.int).empty')
 
         self.assertRepr(schema.array.of(schema.integer).non_empty,
-                       'schema.list(schema.int).len(1, ...)')
+                       'schema.array_of(schema.int).non_empty')
 
         self.assertRepr(schema.array.of(schema.integer).length(2),
-                       'schema.list(schema.int).len(2, 2)')
+                       'schema.array_of(schema.int).length(2)')
 
         self.assertRepr(schema.array.of(schema.integer).length(1, 10),
-                       'schema.list(schema.int).len(1, 10)')
+                       'schema.array_of(schema.int).length(1, 10)')
 
         self.assertRepr(schema.array.of(schema.integer).min_length(1),
-                       'schema.list(schema.int).len(1, ...)')
+                       'schema.array_of(schema.int).min_length(1)')
 
         self.assertRepr(schema.array.of(schema.integer).max_length(10),
-                       'schema.list(schema.int).len(..., 10)')
+                       'schema.array_of(schema.int).max_length(10)')
 
         self.assertRepr(
             schema.array.of(schema.object({
                 'id': schema.string.numeric
             })),
-            "schema.list(schema.object({" + "\n" +
+            "schema.array_of(schema.object({" + "\n" +
             "    'id': schema.string.numeric" + "\n" +
             "}))"
         )

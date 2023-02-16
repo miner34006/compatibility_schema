@@ -2,8 +2,9 @@ from typing import Any
 
 from niltype import Nil
 from revolt import Substitutor
-from revolt.errors import make_substitution_error
+from revolt.errors import SubstitutionError
 
+from ...helpers import check_type
 from ._timestamp_schema import TimestampSchema
 
 __all__ = ("TimestampSubstitutor",)
@@ -12,7 +13,7 @@ __all__ = ("TimestampSubstitutor",)
 class TimestampSubstitutor(Substitutor, extend=True):
     def visit_timestamp(self, schema: TimestampSchema, *,
                         value: Any = Nil, **kwargs: Any) -> TimestampSchema:
-        result = schema.__accept__(self._validator, value=value)
-        if result.has_errors():
-            raise make_substitution_error(result, self._formatter)
-        return schema.__class__(schema.props.update(value=value))
+        error = check_type(value, [str])
+        if error:
+            raise SubstitutionError(error)
+        return schema.__class__(schema.props.update(value=value))(value)

@@ -5,7 +5,6 @@ from .validator_testcase import ValidatorTestCase
 
 class TestOneOfValidator(ValidatorTestCase):
 
-    # TODO: проверка в тесте падает
     def test_it_validates_options(self):
         option1 = schema.object({'id': schema.integer})
         option2 = schema.object({'id': schema.string.numeric})

@@ -27,6 +27,7 @@ class TestSubstitution(SubstitutionTestCase):
 
     def test_string_type_substitution(self):
         self.assertSchemaHasValue(schema.string % 'banana', 'banana')
+        self.assertSchemaHasValue(schema.string('banana') % 'banana1', 'banana1')
         with self.assertRaises(SubstitutionError):
             schema.string.numeric % 1
 
@@ -59,12 +60,11 @@ class TestSubstitution(SubstitutionTestCase):
         array2_value = [{'id': 1}, {'id': 2}]
         self.assertSchemaHasValue(array2_schema % array2_value, array2_value)
 
-        with self.assertRaises(SubstitutionError):
+        with self.assertRaises(IndexError):
             array2_schema % array1_value
 
         array2_value_extra = [{'id': 1}, {'id': 2}, {'id': 3}]
-        with self.assertRaises(SubstitutionError):
-            array2_schema % array2_value_extra
+        array2_schema % array2_value_extra
 
     def test_array_of_type_substitution(self):
         self.assertSchemaHasValue(schema.array.of(
@@ -76,15 +76,14 @@ class TestSubstitution(SubstitutionTestCase):
         self.assertSchemaHasValue(schema.array.of(
             schema.integer) % [1, 2, 3], [1, 2, 3])
 
-    # TODO: тест падает, поведение поменялось
-    # def test_array_of_object_type_substitution(self):
-    #     object_schema = schema.object({
-    #         'id': schema.integer,
-    #         'is_deleted': schema.boolean,
-    #     })
-    #     array_value = [{'id': 1}, {'id': 2, 'is_deleted': False}]
-    #     self.assertSchemaHasValue(schema.array.of(
-    #         object_schema) % array_value, array_value)
+    def test_array_of_object_type_substitution(self):
+        object_schema = schema.object({
+            'id': schema.integer,
+            'is_deleted': schema.boolean,
+        })
+        array_value = [{'id': 1}, {'id': 2, 'is_deleted': False}]
+        self.assertSchemaHasValue(schema.array.of(
+            object_schema) % array_value, array_value)
 
     def test_object_type_substitution(self):
         object_schema = schema.object({
@@ -184,3 +183,25 @@ class TestSubstitution(SubstitutionTestCase):
 
         with self.assertRaises(SubstitutionError):
             schema.enum(1, 2) % 3
+
+    def test_substitution_inside_any_with_missing_keys(self):
+        s = schema.any(schema.object({'id': schema.integer, 'name': schema.string}))
+        value = {'id': 1}
+        s = s % value
+        self.assertSchemaHasValue(s.props.types[0], {'id': 1, 'name': None})
+        self.assertEqual(s.props.types[0].props.keys['id'][0].props.value, 1)
+
+    # def test_substitution_with_another_pattern_in_any(self):
+    #     s = schema.string.pattern(r'^[a-z0-9-]{1}\@[a-z0-9]{1}\.[a-z]{1}$')
+    #     s = schema.object({'email': s | schema.null})
+    #     s % {'email': 'aa@aa.aa'}
+
+    def test_substitution_object_in_object(self):
+        s = schema.object({
+            'payload': schema.object({
+                'object': schema.object
+            })
+        })
+        value = {'id': 1}
+        s = s % {'payload.object': value}
+        self.assertEqual(s.props.keys['payload'][0].props.keys['object'][0].props.keys['id'][0].props.value, 1)

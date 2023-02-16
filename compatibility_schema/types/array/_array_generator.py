@@ -2,9 +2,8 @@ import random
 from typing import Any
 
 from blahblah import Generator
-from niltype import Nil
-
 from district42.types import Schema
+from niltype import Nil
 
 from .._number_schema import NumberSchema
 from ..string._string_schema import StringSchema

@@ -1,12 +1,11 @@
 from copy import deepcopy
 from typing import Any
 
-from niltype import Nil, Nilable
-
 from district42 import Props, SchemaVisitor
 from district42 import SchemaVisitorReturnType as ReturnType
 from district42.errors import DeclarationError
 from district42.types import Schema
+from niltype import Nil, Nilable
 
 from ...helpers import check_type, roll_out
 
@@ -91,10 +90,12 @@ class ObjectSchema(Schema[ObjectProps]):
     def __roll_out(self, keys):
         new_keys = {}
         for composite_key, val in keys.items():
+            is_required = True
+            if isinstance(val, tuple):
+                val, is_required = val
             error = check_type(val, [Schema])
             if error:
                 raise DeclarationError(error)
-            is_required = True
             parts = composite_key.split('.')
             key = parts[0]
             if key[-1] == '?':

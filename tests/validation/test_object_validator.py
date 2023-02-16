@@ -151,3 +151,13 @@ class TestObjectValidator(ValidatorTestCase):
                 'id': schema.integer
             }).length(2)
         )
+
+    def test_validation_with_not_required_keys_after_sum(self):
+        base_s = schema.object({
+            'name': schema.string
+        })
+        s = base_s + schema.object({
+            'id?': schema.integer,
+        })
+        self.assertValidationPasses(
+            {'name': 'name'}, s)

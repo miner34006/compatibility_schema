@@ -1,11 +1,10 @@
 from copy import deepcopy
 from typing import Any
 
+from district42 import from_native
 from niltype import Nil
 from revolt import Substitutor
 from revolt.errors import SubstitutionError
-
-from district42 import from_native
 
 from ...helpers import check_type, roll_out
 from ._object_schema import ObjectProps, ObjectSchema
@@ -19,10 +18,6 @@ class ObjectSubstitutor(Substitutor, extend=True):
         error = check_type(value, [dict])
         if error:
             raise SubstitutionError(error)
-
-        # result = schema.__accept__(self._validator, value=roll_out(value))
-        # if result.has_errors():
-        #     raise make_substitution_error(result, self._formatter)
 
         rolled_keys = roll_out(value)
         if schema.props.keys is not Nil:
@@ -41,7 +36,6 @@ class ObjectSubstitutor(Substitutor, extend=True):
 
         object_keys = {}
         for key, val in rolled_keys.items():
-            object_keys[key] = from_native(val)
-        substituted = ObjectSchema(ObjectProps(object_keys))
-
+            object_keys[key] = from_native(val), True
+        substituted = ObjectSchema(ObjectProps({'keys': object_keys}))
         return substituted.strict if schema.props.strict is not Nil else substituted

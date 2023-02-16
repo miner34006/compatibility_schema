@@ -1,12 +1,11 @@
 from typing import Any, Union
 
 import delorean
-from niltype import Nilable
-
 from district42 import Props, SchemaVisitor
 from district42 import SchemaVisitorReturnType as ReturnType
 from district42.errors import DeclarationError
 from district42.types import Schema
+from niltype import Nilable
 
 from ...helpers import check_type
 

@@ -1,9 +1,9 @@
 import unittest
 
 from blahblah import fake
+from district42 import from_native
 
 from compatibility_schema import json_schema as schema
-from district42 import from_native
 
 
 class TestGeneration(unittest.TestCase):
