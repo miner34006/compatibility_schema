@@ -13,7 +13,7 @@ __all__ = ("ArrayOfSubstitutor",)
 
 class ArrayOfSubstitutor(Substitutor, extend=True):
     def visit_array_of(self, schema: ArrayOfSchema, *,
-                    value: Any = Nil, **kwargs: Any) -> ArrayOfSchema:
+                       value: Any = Nil, **kwargs: Any) -> ArrayOfSchema:
         error = check_type(value, [list])
         if error:
             raise SubstitutionError(error)

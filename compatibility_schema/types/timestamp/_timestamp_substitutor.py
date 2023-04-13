@@ -1,6 +1,5 @@
 from typing import Any
 
-import delorean
 from niltype import Nil
 from revolt import Substitutor
 from revolt.errors import SubstitutionError

@@ -1,13 +1,13 @@
 from typing import Any
 
-from niltype import  Nilable
+from niltype import Nilable
 
 from district42 import Props, SchemaVisitor
 from district42 import SchemaVisitorReturnType as ReturnType
 from district42.errors import make_invalid_type_error
 from district42.types import Schema
 
-__all__ = ("StringSchema",)
+__all__ = ("BooleanSchema",)
 
 
 class BooleanProps(Props):

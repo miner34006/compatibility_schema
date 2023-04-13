@@ -2,7 +2,6 @@ import random
 from typing import Any
 
 from blahblah import Generator
-from district42.types import Schema
 from niltype import Nil
 
 from .._number_schema import NumberSchema
@@ -17,6 +16,7 @@ PRIMITIVES = (
     NumberSchema().float,
     StringSchema()
 )
+
 
 class ArrayGenerator(Generator, extend=True):
     def __get_length(self, schema):

@@ -7,7 +7,7 @@ from revolt import Substitutor
 from revolt.errors import SubstitutionError
 
 from ...helpers import check_type, roll_out
-from ._object_schema import ObjectProps, ObjectSchema
+from ._object_schema import ObjectSchema
 
 __all__ = ("ObjectSubstitutor",)
 
@@ -24,7 +24,8 @@ class ObjectSubstitutor(Substitutor, extend=True):
             clone = ObjectSchema(deepcopy(schema.props))
 
             for key, value in clone.props.keys.items():
-                if key not in rolled_keys: continue
+                if key not in rolled_keys:
+                    continue
                 is_required = value[1]
                 if not is_required:
                     clone.props.keys[key] = value[0], True

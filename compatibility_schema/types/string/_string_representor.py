@@ -18,7 +18,7 @@ class StringRepresentor(Representor, extend=True):
             elif schema.props.min is not Nil:
                 r += f".numeric({schema.props.min!r})"
             else:
-                r += f".numeric"
+                r += ".numeric"
 
         if schema.props.value is not Nil:
             r += f"({schema.props.value!r})"
@@ -32,7 +32,7 @@ class StringRepresentor(Representor, extend=True):
         if schema.props.pattern is not Nil and schema.props.numeric is Nil:
             r += f".pattern({schema.props.pattern!r})"
         elif schema.props.uri is not Nil:
-            r += f".uri"
+            r += ".uri"
 
         if schema.props.len is not Nil:
             r += f".length({schema.props.len!r})"

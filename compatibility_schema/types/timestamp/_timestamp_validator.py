@@ -17,7 +17,8 @@ iso8601 = r'^([\+-]?\d{4}(?!\d{2}\b))((-?)((0[1-9]|1[0-2])(\3([12]\d|0[1-9]|3[01
 
 class TimestampValidator(Validator, extend=True):
     def __is_type_valid(self, actual_val, valid_types):
-        if type(actual_val) in valid_types: return True
+        if type(actual_val) in valid_types:
+            return True
         return False
 
     def __is_pattern_match(self, actual_val, pattern):

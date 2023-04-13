@@ -12,7 +12,7 @@ __all__ = ("BooleanSubstitutor",)
 
 class BooleanSubstitutor(Substitutor, extend=True):
     def visit_boolean(self, schema: BooleanSchema, *,
-                     value: Any = Nil, **kwargs: Any) -> BooleanSchema:
+                      value: Any = Nil, **kwargs: Any) -> BooleanSchema:
         error = check_type(value, [bool])
         if error:
             raise SubstitutionError(error)

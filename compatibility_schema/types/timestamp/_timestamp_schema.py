@@ -14,7 +14,6 @@ from ...helpers import check_type
 __all__ = ("TimestampSchema",)
 
 
-
 class TimestampProps(Props):
     @property
     def value(self) -> delorean.Delorean:
@@ -27,7 +26,6 @@ class TimestampProps(Props):
     @property
     def format(self) -> Nilable[str]:
         return self.get("format")
-
 
 
 class TimestampSchema(Schema[TimestampProps]):
@@ -73,4 +71,3 @@ class TimestampSchema(Schema[TimestampProps]):
     @property
     def nullable(self):
         raise NotImplementedError()
-

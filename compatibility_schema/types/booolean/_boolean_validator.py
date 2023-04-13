@@ -1,4 +1,3 @@
-import re
 from typing import Any
 
 from niltype import Nil, Nilable
@@ -14,8 +13,8 @@ __all__ = ("BooleanValidator",)
 
 class BooleanValidator(Validator, extend=True):
     def visit_boolean(self, schema: BooleanSchema, *,
-                     value: Any = Nil, path: Nilable[PathHolder] = Nil,
-                     **kwargs: Any) -> ValidationResult:
+                      value: Any = Nil, path: Nilable[PathHolder] = Nil,
+                      **kwargs: Any) -> ValidationResult:
         result = self._validation_result_factory()
         if path is Nil:
             path = self._path_holder_factory()

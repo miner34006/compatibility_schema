@@ -5,4 +5,5 @@ from ._boolean_substitutor import BooleanSubstitutor
 from ._boolean_validator import BooleanValidator, BooleanSubstitutorValidator
 
 __all__ = ("BooleanSchema", "BooleanGenerator", "BooleanRepresentor", "BooleanSubstitutor"
-           "BooleanValidator", "BooleanSubstitutorValidator")
+           "BooleanValidator", "BooleanSubstitutorValidator", "BooleanSubstitutor",
+           "BooleanValidator")

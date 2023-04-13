@@ -5,7 +5,6 @@ from niltype import Nil, Nilable
 from revolt import SubstitutorValidator
 from th import PathHolder
 from valera import ValidationResult, Validator
-from revolt import SubstitutorValidator
 from valera.errors import (ExtraKeyValidationError, LengthValidationError,
                            MaxLengthValidationError, MinLengthValidationError,
                            MissingKeyValidationError, TypeValidationError)
@@ -18,15 +17,17 @@ __all__ = ("ObjectValidator", "ObjectSubstitutorValidator")
 def is_length_match(actual_val, expected_length, comparator):
     return getattr(len(actual_val), comparator)(expected_length)
 
+
 def is_type_valid(actual_val, valid_types):
-    if type(actual_val) in valid_types: return True
+    if type(actual_val) in valid_types:
+        return True
     return False
 
 
 class ObjectValidator(Validator, extend=True):
     def visit_object(self, schema: ObjectSchema, *,
-                    value: Any = Nil, path: Nilable[PathHolder] = Nil,
-                    **kwargs: Any) -> ValidationResult:
+                     value: Any = Nil, path: Nilable[PathHolder] = Nil,
+                     **kwargs: Any) -> ValidationResult:
         result = self._validation_result_factory()
         if path is Nil:
             path = self._path_holder_factory()
@@ -67,8 +68,8 @@ class ObjectValidator(Validator, extend=True):
 
 class ObjectSubstitutorValidator(SubstitutorValidator, extend=True):
     def visit_object(self, schema: ObjectSchema, *,
-                    value: Any = Nil, path: Nilable[PathHolder] = Nil,
-                    **kwargs: Any) -> ValidationResult:
+                     value: Any = Nil, path: Nilable[PathHolder] = Nil,
+                     **kwargs: Any) -> ValidationResult:
         result = self._validation_result_factory()
         if path is Nil:
             path = self._path_holder_factory()
