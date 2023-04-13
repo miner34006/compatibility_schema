@@ -1,8 +1,8 @@
 import warnings
-from district42.types import AnySchema, BoolSchema, NoneSchema
+from district42.types import AnySchema, NoneSchema
 
 from .types import (ArrayOfSchema, ArraySchema, EnumSchema, NumberSchema,
-                    ObjectSchema, StringSchema, TimestampSchema)
+                    ObjectSchema, StringSchema, TimestampSchema, BooleanSchema)
 
 
 class Schema:
@@ -15,7 +15,7 @@ class Schema:
 
     @property
     def boolean(self):
-        return BoolSchema()
+        return BooleanSchema()
 
     @property
     def number(self):
