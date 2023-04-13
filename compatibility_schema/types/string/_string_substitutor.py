@@ -16,6 +16,6 @@ class StringSubstitutor(Substitutor, extend=True):
         error = check_type(value, [str])
         if error:
             raise SubstitutionError(error)
-        s = schema.__class__()
-        s.props.update(value=value)
-        return s
+        return schema.__class__(schema.props.update(
+            value=value
+        ))

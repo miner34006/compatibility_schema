@@ -210,6 +210,9 @@ class TestGeneration(unittest.TestCase):
         data = fake(schema.string.non_empty)
         self.assertGreaterEqual(len(data), 1)
 
+        data = fake(schema.string.numeric(1, 2 ** 63 - 1) % 'banana')
+        self.assertEqual(data, 'banana')
+
     def test_timestamp_type_generator(self):
         # type
         data = fake(schema.timestamp)

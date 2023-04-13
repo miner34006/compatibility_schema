@@ -33,6 +33,7 @@ class TestSubstitution(SubstitutionTestCase):
         self.assertSchemaHasValue(schema.string('banana') % 'banana1', 'banana1')
         with self.assertRaises(SubstitutionError):
             schema.string.numeric % 1
+        self.assertSchemaHasValue(schema.string.numeric(1, 2 ** 63 - 1) % 'banana', 'banana')
 
     def test_timestamp_type_substitution(self):
         with self.assertRaises(SubstitutionError):
