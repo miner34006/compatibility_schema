@@ -210,6 +210,9 @@ class TestGeneration(unittest.TestCase):
         data = fake(schema.string.non_empty)
         self.assertGreaterEqual(len(data), 1)
 
+        data = fake(schema.string.numeric(1, 2 ** 63 - 1) % 'banana')
+        self.assertEqual(data, 'banana')
+
     def test_timestamp_type_generator(self):
         # type
         data = fake(schema.timestamp)
@@ -348,6 +351,29 @@ class TestGeneration(unittest.TestCase):
         data = fake(schema.object.non_empty)
         self.assertGreaterEqual(len(data), 1)
 
+        # schema with fields replace
+        object_schema = schema.object({
+            'inner': schema.object({
+                'id': schema.integer(1),
+                'bool': schema.boolean(True)
+            })
+        })
+        object_schema = object_schema + schema.object({
+            'inner.id': schema.integer(2),
+            'inner.bool': schema.boolean(False),
+        })
+        data = fake(object_schema)
+        self.assertEqual(data['inner']['id'], 2)
+        self.assertEqual(data['inner']['bool'], False)
+
+        # test full object generation
+        object_schema = schema.object({
+            'field': schema.object
+        })
+        object_schema = object_schema % {'field': {'a': 1}}
+        data = fake(object_schema)
+        self.assertEqual(data['field']['a'], 1)
+
     def test_any_type_generator(self):
         # type
         data = fake(schema.any(schema.integer, schema.string))
@@ -358,7 +384,6 @@ class TestGeneration(unittest.TestCase):
         data = fake(schema.one_of(schema.boolean,
                     schema.integer(1), schema.integer(0)))
         self.assertIn(data, (True, False, 1, 0))
-
 
     def test_enum_type_generator(self):
         # enumerators

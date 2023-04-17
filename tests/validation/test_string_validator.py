@@ -117,3 +117,8 @@ class TestStringValidator(ValidatorTestCase):
         self.assertValidationFails('ab', schema.string.length(3, 5))
         self.assertValidationFails('',   schema.string.min_length(1))
         self.assertValidationFails('ab', schema.string.max_length(1))
+
+    def test_it_validates_pattern_with_value(self):
+        s = schema.string.pattern('b')
+        s = s % 'a'
+        self.assertValidationPasses('a',   s)

@@ -87,7 +87,7 @@ class ArraySchema(Schema[ArrayProps]):
         return self.__class__(self.props.update(contains_all=list(items)))
 
     @property
-    def empty(self)  -> "ArraySchema":
+    def empty(self) -> "ArraySchema":
         return self.__class__(self.props.update(empty=True, length=0))
 
     @property
@@ -101,10 +101,10 @@ class ArraySchema(Schema[ArrayProps]):
             return self.__class__(self.props.update(length=args[0]))
         return self.__class__(self.props.update(min_length=args[0], max_length=args[1]))
 
-    def min_length(self, value: int)  -> "ArraySchema":
+    def min_length(self, value: int) -> "ArraySchema":
         return self.__class__(self.props.update(min_length=value))
 
-    def max_length(self, value: int)  -> "ArraySchema":
+    def max_length(self, value: int) -> "ArraySchema":
         return self.__class__(self.props.update(max_length=value))
 
     @property

@@ -27,5 +27,3 @@ class ArraySubstitutor(Substitutor, extend=True):
                 array_items += [from_native(item)]
 
         return schema.__class__(schema.props.update(items=array_items))
-
-

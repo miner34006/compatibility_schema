@@ -1,4 +1,4 @@
-from typing import Any, cast
+from typing import cast
 
 from th import PathHolder
 from valera import Formatter

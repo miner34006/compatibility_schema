@@ -1,5 +1,7 @@
 from typing import Any, Union
+from datetime import datetime, timezone
 
+from niltype import Nil
 import delorean
 from district42 import Props, SchemaVisitor
 from district42 import SchemaVisitorReturnType as ReturnType
@@ -12,10 +14,9 @@ from ...helpers import check_type
 __all__ = ("TimestampSchema",)
 
 
-
 class TimestampProps(Props):
     @property
-    def value(self) -> Nilable[str]:
+    def value(self) -> delorean.Delorean:
         return self.get("value")
 
     @property
@@ -27,22 +28,26 @@ class TimestampProps(Props):
         return self.get("format")
 
 
-
 class TimestampSchema(Schema[TimestampProps]):
     def __accept__(self, visitor: SchemaVisitor[ReturnType], **kwargs: Any) -> ReturnType:
         return visitor.visit_timestamp(self, **kwargs)
 
     def __call__(self, /, value: Union[str, delorean.Delorean]) -> "TimestampSchema":
-        parsed_value = self.__parse_value(value)
+        parsed_value = self._parse_value(value)
         error = check_type(parsed_value, [str, delorean.Delorean])
         if error:
             raise DeclarationError(error)
         return self.__class__(self.props.update(value=parsed_value))
 
-    def __parse_value(self, value: Union[str, delorean.Delorean]) -> delorean.Delorean:
+    def _parse_value(self, value: Union[str, delorean.Delorean]) -> delorean.Delorean:
         if isinstance(value, delorean.Delorean):
             return value
         try:
+            if self.props.format is not Nil:
+                dt = datetime.strptime(value, self.props.format)
+                if dt.tzinfo is None:
+                    dt = dt.replace(tzinfo=timezone.utc)
+                return delorean.epoch(dt.timestamp())
             return delorean.parse(value)
         except ValueError as e:
             raise DeclarationError(e)
@@ -66,4 +71,3 @@ class TimestampSchema(Schema[TimestampProps]):
     @property
     def nullable(self):
         raise NotImplementedError()
-

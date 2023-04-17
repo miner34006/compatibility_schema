@@ -1,16 +1,13 @@
 import warnings
-from copy import deepcopy
-
-from district42.types import AnySchema, BoolSchema, NoneSchema
+from district42.types import AnySchema, NoneSchema
 
 from .types import (ArrayOfSchema, ArraySchema, EnumSchema, NumberSchema,
-                    ObjectSchema, StringSchema, TimestampSchema)
+                    ObjectSchema, StringSchema, TimestampSchema, BooleanSchema)
 
 
 class Schema:
-
     def ref(self, schema):
-        return deepcopy(schema)
+        return schema
 
     @property
     def null(self):
@@ -18,7 +15,7 @@ class Schema:
 
     @property
     def boolean(self):
-        return BoolSchema()
+        return BooleanSchema()
 
     @property
     def number(self):
@@ -60,7 +57,7 @@ class Schema:
 
     @property
     def any_of(self):
-        raise NotImplementedError()
+        return AnySchema()
 
     @property
     def one_of(self):

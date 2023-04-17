@@ -15,7 +15,6 @@ from niltype import Nil, Nilable
 __all__ = ("StringSchema",)
 
 
-
 class StrProps(Props):
     @property
     def value(self) -> Nilable[str]:
@@ -110,7 +109,7 @@ class StringSchema(Schema[StrProps]):
         return props.update(max_len=max_length)
 
     def __len(self, /, val_or_min: TypeOrEllipsis[int],
-            max: Nilable[TypeOrEllipsis[int]] = Nil) -> "StringSchema":
+              max: Nilable[TypeOrEllipsis[int]] = Nil) -> "StringSchema":
         props = self.props
         if is_ellipsis(val_or_min):
             props = self.__declare_max_len(props, max)

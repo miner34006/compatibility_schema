@@ -5,6 +5,7 @@ from .object import ObjectSchema
 from .array import ArraySchema
 from .string import StringSchema
 from .timestamp import TimestampSchema
+from .booolean import BooleanSchema
 
 __all__ = ("NumberSchema", "StringSchema", "EnumSchema", "ArrayOfSchema",
-           "TimestampSchema", "ObjectSchema", "ArraySchema")
+           "TimestampSchema", "ObjectSchema", "ArraySchema", "BooleanSchema")

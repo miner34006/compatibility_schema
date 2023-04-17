@@ -15,6 +15,9 @@ class TestSubstitution(SubstitutionTestCase):
         with self.assertRaises(SubstitutionError):
             schema.boolean % 'banana'
 
+    def test_boolean_specific_value_substitution(self):
+        self.assertSchemaHasValue(schema.boolean(False) % True, True)
+
     def test_integer_type_substitution(self):
         self.assertSchemaHasValue(schema.integer % 42, 42)
         with self.assertRaises(SubstitutionError):
@@ -30,10 +33,13 @@ class TestSubstitution(SubstitutionTestCase):
         self.assertSchemaHasValue(schema.string('banana') % 'banana1', 'banana1')
         with self.assertRaises(SubstitutionError):
             schema.string.numeric % 1
+        self.assertSchemaHasValue(schema.string.numeric(1, 2 ** 63 - 1) % 'banana', 'banana')
 
     def test_timestamp_type_substitution(self):
         with self.assertRaises(SubstitutionError):
             schema.timestamp % True
+
+        schema.timestamp.format('%Y-%m-%dT%H:%M:%S+00:00') % '2010-01-03T15:15:16+00:00'
 
     def test_array_type_substitution(self):
         self.assertIsInstance(schema.array % [1, 2, 3], schema.array.__class__)
@@ -158,6 +164,14 @@ class TestSubstitution(SubstitutionTestCase):
     def test_any_type_substitution(self):
         with self.assertRaises(SubstitutionError):
             schema.any % SubstitutionTestCase
+
+        bool_or_null = schema.boolean(True) | schema.null
+        value = False
+        self.assertSchemaHasValue(bool_or_null % value, value)
+
+        string_or_null = schema.string('a') | schema.null
+        value = 'b'
+        self.assertSchemaHasValue(string_or_null % value, value)
 
     def test_one_of_type_substitution(self):
         integer_or_numeric = schema.one_of(
