@@ -12,9 +12,9 @@ setup(
     packages=find_packages(),
     install_requires=[
         'Delorean==0.5.0',
-        'valera==1.5.0',
-        'revolt==1.5.1',
-        'blahblah==1.5.0',
-        'district42==1.5.1'
+        'valera>=1.5.0,<2.0',
+        'revolt>=1.5.0,<2.0',
+        'blahblah>=1.5.0,<2.0',
+        'district42>=1.5.0,<2.0'
     ]
 )
